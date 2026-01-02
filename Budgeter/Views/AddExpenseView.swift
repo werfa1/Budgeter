@@ -56,5 +56,7 @@ struct AddExpenseView: View {
 }
 
 #Preview {
-    AddExpenseView(expenseName: .constant("Shell"), expenseAmount: .constant("10.0"))
+    AddExpenseView(
+        expenseName: .constant("Shell"),
+        expenseAmount: .constant("10.0"))
 }

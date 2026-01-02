@@ -11,8 +11,7 @@ struct BudgetView: View {
     
     // MARK: - Properties -
     
-    @State private var currentBalance = 300
-    @State private var budget = 500
+    @State private var budget = 500.0
     @State private var isOverspent = false
     @State private var isPopoverShown = false
     
@@ -22,7 +21,7 @@ struct BudgetView: View {
     
     @State private var expensesData = [
         ExpenseLog(name: "Chevron", amount: 50),
-        ExpenseLog(name: "Arco", amount: 65.00),
+        ExpenseLog(name: "Arco", amount: 65.33),
         ExpenseLog(name: "Shell", amount: 32.00)
     ]
     
@@ -30,6 +29,15 @@ struct BudgetView: View {
         guard currentBalance > 0 else { return 0 }
         return CGFloat(currentBalance) / CGFloat(budget)
     }
+    
+    private var currentBalance: Double {
+        var spendings = 0.0
+        for expense in expensesData {
+            spendings += expense.amount
+        }
+        return budget - spendings
+    }
+    
     private let circleLimit = 0.7
     
     // MARK: - Methods -
@@ -58,7 +66,7 @@ struct BudgetView: View {
                         Text("Gas")
                             .font(.largeTitle)
                             .foregroundStyle(isOverspent ? .red : .black)
-                        Text("\(currentBalance)/\(budget)")
+                        Text("\(currentBalance.formatted())/\(budget.formatted())")
                     }
                     Circle()
                         .trim(from: 0.0, to: circleLimit)
@@ -78,12 +86,13 @@ struct BudgetView: View {
                 HStack {
                     Button("Spend") {
                         guard currentBalance > 0 else { return }
-                        currentBalance -= 50
+//                        currentBalance -= 50
                         isOverspent = currentBalance == 0
                     }
                     
                     Button("Append") {
-                        currentBalance += 50
+                        guard currentBalance > budget else { return }
+//                        currentBalance += 50
                         isOverspent = !(currentBalance < budget)
                     }
                 }
@@ -93,7 +102,7 @@ struct BudgetView: View {
                         HStack {
                             Text(log.name)
                             Spacer()
-                            Text("$\(log.amount, specifier: "%.1f")")
+                            Text("$\(log.amount, specifier: "%.2f")")
                         }
 //                        .padding()
 //                        .frame(maxWidth: .infinity)
@@ -133,7 +142,9 @@ struct BudgetView: View {
                         guard let enteredExpenseAmountAsDouble = Double(enteredExpenseAmount) else { return }
                         let newExpense = ExpenseLog(name: enteredExpenseName, amount: enteredExpenseAmountAsDouble)
                         expensesData.append(newExpense)
-                        print("New item added")
+                        
+                        enteredExpenseName = ""
+                        enteredExpenseAmount = ""
                     }, content: {
                         NavigationStack {
                             AddExpenseView(expenseName: $enteredExpenseName, expenseAmount: $enteredExpenseAmount)
