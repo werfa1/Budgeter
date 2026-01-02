@@ -136,7 +136,7 @@ struct BudgetView: View {
                         print("New item added")
                     }, content: {
                         NavigationStack {
-                            AddExpenseView()
+                            AddExpenseView(expenseName: $enteredExpenseName, expenseAmount: $enteredExpenseAmount)
                                 .presentationDetents([.medium])
                             
                                 .navigationTitle("Add expense")
@@ -147,8 +147,7 @@ struct BudgetView: View {
                                             isPopoverShown = false
                                         }
                                     }
-                                }
-                                
+                                }  
                         }
                     })
                     

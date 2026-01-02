@@ -12,8 +12,8 @@ struct AddExpenseView: View {
     // MARK: - Properties -
     
     @Environment(\.dismiss) private var dismiss
-    @State private var expenseName = ""
-    @State private var expenseAmount = ""
+    @Binding var expenseName: String
+    @Binding var expenseAmount: String
     
     // MARK: - View -
     
@@ -56,5 +56,5 @@ struct AddExpenseView: View {
 }
 
 #Preview {
-    AddExpenseView()
+    AddExpenseView(expenseName: .constant("Shell"), expenseAmount: .constant("10.0"))
 }
