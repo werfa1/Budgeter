@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct BudgetView: View {
     
     // MARK: - Properties -
     
@@ -159,6 +159,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    BudgetView()
 }
 
