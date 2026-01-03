@@ -15,6 +15,7 @@ extension Double {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = maxDecimals
+        formatter.decimalSeparator = "."
         return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }

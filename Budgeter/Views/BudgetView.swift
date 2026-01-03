@@ -81,6 +81,7 @@ struct BudgetView: View {
                         .containerRelativeFrame(.horizontal) {width, _ in width * 0.4}
                         .containerRelativeFrame(.vertical) { height, _ in height * 0.2}
                         .rotationEffect(.degrees(-215))
+                        .animation(.easeIn(duration: 0.4), value: remainder)
                 }
                 
                 HStack {
@@ -102,7 +103,7 @@ struct BudgetView: View {
                         HStack {
                             Text(log.name)
                             Spacer()
-                            Text("$\(log.amount, specifier: "%.2f")")
+                            Text("$\(log.amount.formatted())")
                         }
 //                        .padding()
 //                        .frame(maxWidth: .infinity)
